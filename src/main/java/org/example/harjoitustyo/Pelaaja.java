@@ -1,0 +1,176 @@
+package org.example.harjoitustyo;
+
+import java.io.*;
+import java.util.Date;
+
+/**
+ * Pelaaja
+ * <br>
+ * Pelaaja luokka pitää kirjaa pelaajan tiedoista kuten nimestä, pisteistä ja päivämäärästä, jolloin tulos on
+ * pelattu.
+ * Luokassa hoidetaan myös tietojen tallennus ja lukeminen tiedostosta.
+ * @author Anssi Sankari
+ */
+public class Pelaaja implements Serializable {
+    //pelidata
+    private int taso = 1;
+    private int sekvenssiAloitus = 3;
+    private int sekvenssi = 0;
+    private int pisteet = 0;
+    private String pelaajaNimi = "";
+    private Date gameDate = new Date();
+
+    //tiedosto
+    private File dataTiedosto = new File("datafile.txt");
+
+    public Pelaaja() {
+        this.taso = taso;
+        this.sekvenssiAloitus = sekvenssiAloitus; //mahdollisesti tarpeeton
+        this.sekvenssi = sekvenssi; //mahdollisesti tarpeeton
+        this.pisteet = pisteet;
+        this.pelaajaNimi = pelaajaNimi;
+        this.gameDate = gameDate;
+
+        if (!dataTiedosto.exists()) {
+            try {
+                dataTiedosto.createNewFile();
+            } catch (Exception e) {
+                System.out.println("Tiedosto on jo olemassa.");
+            }
+        } else {
+            lueTiedostosta();
+        }
+    }
+
+    public int getTaso() {
+        return taso;
+    }
+
+    public void setTaso(int level) {
+        this.taso = level;
+    }
+
+    public int getSekvenssiAloitus() {
+        return sekvenssiAloitus;
+    }
+
+    public void setSekvenssiAloitus(int sequStart) {
+        this.sekvenssiAloitus = sequStart;
+    }
+
+    public int getSekvenssi() {
+        return sekvenssi;
+    }
+
+    public void setSekvenssi(int sekvenssi) {
+        this.sekvenssi = sekvenssi;
+    }
+
+    public void setPisteet(int pisteet) {
+        this.pisteet += pisteet;
+    }
+
+    public String getPelaajaNimi() {
+        return pelaajaNimi;
+    }
+
+    public void setPelaajaNimi(String pelaajaNimi) {
+        //System.out.println(pelaajaNimi);
+        this.pelaajaNimi = pelaajaNimi;
+    }
+
+    /**
+     * tallennaTiedostoon metodi tallentaa tiedostoon pelikerran tiedot, jotta ennätys voidaan näyttää.
+     */
+    protected void tallennaTiedostoon() {
+        FileWriter kirjoitaTiedostoon = null;
+        try {
+            kirjoitaTiedostoon = new FileWriter(dataTiedosto);
+            //kirjotetaan tiedot tiedostoon
+            kirjoitaTiedostoon.write("\nPelaajanimi: " + this.pelaajaNimi +
+                    "\nSaavutettu taso: " + this.taso +
+                    "\nPisteillä: " + this.pisteet +
+                    "\nPäivänä: " + this.gameDate);
+        } catch (IOException e) {
+            System.out.println("Virhe kirjoittamisessa tallentaessa");
+        }
+        //tiedoston sulun virhe
+        try {
+            kirjoitaTiedostoon.close();
+        } catch (IOException e) {
+            System.out.println("Virhe sulussa tallentaessa");
+        }
+    }
+
+    /**
+     * lueTiedostosta metodi hoitaa talletettujen tietojen lukemisen tiedostosta ja palauttaa
+     * String muotoisen tiedon, jossa on luetut tiedot.
+     * @return palauttaa String muotoisena tiedostosta luetut tiedot.
+     */
+    //kaipaisin tähän metodiin vähän apuja koodin selkeyttämiseen, kun tämä meni hirveän epäselväksi
+    //enkä ole keksinyt miten saan siistittyä koodia. Viimeisin yritys selkeyttää teki sen,
+    //että sain tallennettua tiedot uuteen tiedostoon, mutta ohjelman seuraavalla käynnistyksellä
+    //grafiikka ei enää tullut esiin. Palautin koodin takaisin alla näkyvään muotoon, joten
+    //lukemisen on miltei pakko olla ongelman aiheuttaja.
+    /*
+    protected String lueTiedostosta() {
+        BufferedReader lueTiedosto = null;
+        String ennatysTeksti = "";
+        try {
+            lueTiedosto = new BufferedReader(new FileReader(dataTiedosto));
+            String lueRivi = lueTiedosto.readLine();
+            if (lueRivi != null) {
+                do {
+                    //System.out.println(lueRivi);
+                    lueRivi = lueTiedosto.readLine();
+                    if (lueRivi != null) {
+                        ennatysTeksti += lueRivi + "\n";
+                    }
+                } while (lueRivi != null);
+            }
+        } catch (IOException e) {
+            System.out.println("Virhe lukemisessa lukiessa.");
+        } finally {
+            if (lueTiedosto != null) {
+                try {
+                    lueTiedosto.close();
+                } catch (IOException e) {
+                    System.out.println("Virhe sulussa lukiessa");
+                }
+            }
+        }
+        return ennatysTeksti;
+    }
+    */
+
+    protected String lueTiedostosta() {
+        BufferedReader lueTiedosto = null;
+        StringBuilder ennatysTeksti = new StringBuilder();
+        try {
+            lueTiedosto = new BufferedReader(new FileReader(dataTiedosto));
+            String lueRivi;
+            while ((lueRivi = lueTiedosto.readLine()) != null) {
+                ennatysTeksti.append(lueRivi).append("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Virhe lukemisessa lukiessa.");
+        } finally {
+            if (lueTiedosto != null) {
+                try {
+                    lueTiedosto.close();
+                } catch (IOException e) {
+                    System.out.println("Virhe sulussa lukiessa");
+                }
+            }
+        }
+        return ennatysTeksti.toString();
+    }
+
+    public static void main(String[] args) {
+        //testausta
+        //Pelaaja testData = new Pelaaja(1,2,3,0,"Peluri");
+        //testData.lueTiedostosta();
+        //testData.tallennaTiedostoon();
+
+    }
+}

@@ -1,0 +1,28 @@
+Käyttöliittymä
+- pelilauta < tehty
+- käynnistä nappi < tehty
+- parhaan tuloksen näyttö
+- painikkeiden piirto < tehty
+- nappien vilkutus järjestyksessä < tehty
+- värimaailman muutos
+- graafinen näyttö, jossa syötetään pelaajan nimi
+
+
+Pelilogiikka
+- tason nosto < tehty
+- sekvenssi painikkeille < tehty
+- sekvenssin osien lisäys < tehty
+- pelin katkaisu
+- pelin käynnistys < tehty
+
+
+Pelaaja
+- pelaajan nimi < tehty
+- pelaajan taso < tehty
+- get ja set metodit < tehty
+- pelipäivä
+- viimeisimmän läpäistyn tason kesto
+- tietojen tallennus ja luku tiedostosta <- omaan luokkaan?
+
+Ennätyksen hallinta pitää hoitaa. Tarkasta onko uusi tulos parempi kuin tiedostosta luettu.
+Tarkasta ennätyksen tulostuminen oikein, nyt tapahtuu jotain jännää.
