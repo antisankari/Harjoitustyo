@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class Pelilogiikka {
 
-    ArrayList<Character> sekvenssi = new ArrayList<Character>();
+    protected ArrayList<Character> sekvenssi = new ArrayList<Character>();
     private String variValinta = "RGBY";
     private int sekvenssinIndeksi;
     private int taso;
@@ -82,7 +82,9 @@ public class Pelilogiikka {
             System.out.println("väärin meni");
             pelaaja.setPisteet(sekvenssinIndeksi - 1); //lisätään oikeiden klikkausten määrä pisteisiin
             sekvenssinIndeksi = 0; //jos ei aseteta 0, alkaa uusi sekvenssi väärästä kohdasta
-            pelaaja.tallennaTiedostoon();
+            if (pelaaja.getEnnatysPelaaja() == null || pelaaja.getPisteet() > pelaaja.getEnnatysPelaaja().getPisteet()) {
+                pelaaja.tallennaTiedostoon();
+            }
         }
     }
 

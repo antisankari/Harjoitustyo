@@ -19,7 +19,7 @@ public class Pelaaja implements Serializable {
     private String pelaajaNimi = "";
     private Date gameDate = new Date();
     final private SimpleDateFormat paivaysMuotoilu = new SimpleDateFormat("dd.MM.yyyy");
-    final private Pelaaja ennatysPelaaja;
+    private Pelaaja ennatysPelaaja;
 
     //tiedosto
     final private File dataTiedosto = new File("datafile.dat");
@@ -36,7 +36,11 @@ public class Pelaaja implements Serializable {
                 System.out.println("Tiedosto on jo olemassa.");
             }
         }
-        ennatysPelaaja = lueTiedostosta();
+        if (dataTiedosto.length() > 0) {
+            ennatysPelaaja = lueTiedostosta();
+        } else {
+            ennatysPelaaja = null;
+        }
     }
 
     public void setTaso(int level) {
@@ -45,6 +49,9 @@ public class Pelaaja implements Serializable {
 
     public void setPisteet(int pisteet) {
         this.pisteet += pisteet;
+    }
+    public int getPisteet() {
+        return pisteet;
     }
 
     public void setPelaajaNimi(String pelaajaNimi) {
