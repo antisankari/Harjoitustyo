@@ -18,18 +18,14 @@ public class Pelaaja implements Serializable {
     private int pisteet = 0;
     private String pelaajaNimi = "";
     private Date gameDate = new Date();
-    private SimpleDateFormat paivaysMuotoilu = new SimpleDateFormat("dd.MM.yyyy");
-    private Pelaaja ennatysPelaaja;
+    final private SimpleDateFormat paivaysMuotoilu = new SimpleDateFormat("dd.MM.yyyy");
+    final private Pelaaja ennatysPelaaja;
 
 
     //tiedosto
-    private File dataTiedosto = new File("datafile.dat");
+    final private File dataTiedosto = new File("datafile.dat");
 
     public Pelaaja() {
-        this.taso = taso;
-        this.pisteet = pisteet;
-        this.pelaajaNimi = pelaajaNimi;
-        this.gameDate = gameDate;
 
         if (!dataTiedosto.exists()) {
             try {
