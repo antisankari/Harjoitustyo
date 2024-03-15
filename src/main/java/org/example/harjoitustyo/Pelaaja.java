@@ -21,12 +21,14 @@ public class Pelaaja implements Serializable {
     final private SimpleDateFormat paivaysMuotoilu = new SimpleDateFormat("dd.MM.yyyy");
     final private Pelaaja ennatysPelaaja;
 
-
     //tiedosto
     final private File dataTiedosto = new File("datafile.dat");
 
+    /**
+     * Pelaaja olion konstruktori luomaan uusi pelaaja olio sekä hakemaan ennätystiedot
+     * tiedostosta toiseen pelaaja olioon.
+     */
     public Pelaaja() {
-
         if (!dataTiedosto.exists()) {
             try {
                 dataTiedosto.createNewFile();
@@ -80,42 +82,6 @@ public class Pelaaja implements Serializable {
      * String muotoisen tiedon, jossa on luetut tiedot.
      * @return palauttaa String muotoisena tiedostosta luetut tiedot.
      */
-    //kaipaisin tähän metodiin vähän apuja koodin selkeyttämiseen, kun tämä meni hirveän epäselväksi
-    //enkä ole keksinyt miten saan siistittyä koodia. Viimeisin yritys selkeyttää teki sen,
-    //että sain tallennettua tiedot uuteen tiedostoon, mutta ohjelman seuraavalla käynnistyksellä
-    //grafiikka ei enää tullut esiin. Palautin koodin takaisin alla näkyvään muotoon, joten
-    //lukemisen on miltei pakko olla ongelman aiheuttaja.
-    /*
-    protected String lueTiedostosta() {
-        BufferedReader lueTiedosto = null;
-        String ennatysTeksti = "";
-        try {
-            lueTiedosto = new BufferedReader(new FileReader(dataTiedosto));
-            String lueRivi = lueTiedosto.readLine();
-            if (lueRivi != null) {
-                do {
-                    //System.out.println(lueRivi);
-                    lueRivi = lueTiedosto.readLine();
-                    if (lueRivi != null) {
-                        ennatysTeksti += lueRivi + "\n";
-                    }
-                } while (lueRivi != null);
-            }
-        } catch (IOException e) {
-            System.out.println("Virhe lukemisessa lukiessa.");
-        } finally {
-            if (lueTiedosto != null) {
-                try {
-                    lueTiedosto.close();
-                } catch (IOException e) {
-                    System.out.println("Virhe sulussa lukiessa");
-                }
-            }
-        }
-        return ennatysTeksti;
-    }
-    */
-
     protected Pelaaja lueTiedostosta() {
         FileInputStream tiedostoStream = null;
         ObjectInputStream pelaajaStream = null;
