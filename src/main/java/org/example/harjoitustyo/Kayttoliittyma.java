@@ -229,7 +229,14 @@ public class Kayttoliittyma extends Application {
         peliLogiikka.setSekvenssiKuuntelija(sekvenssi -> sekvenssinEsitys(sekvenssi));
         piirraPeli();
         nappienTapahtumat();
-        ennatys.setText(pelaaja.lueTiedostosta());
+
+        //haetaan ennätyksen tiedot
+        if (pelaaja.getEnnatysPelaaja() != null) {
+            ennatys.setText(pelaaja.getEnnatysPelaaja().toString());
+        } else {
+            ennatys.setText("Ei olemassa olevaa ennätystä");
+        }
+
 
         Scene scene = new Scene(peliIkkuna,400,500);
         primaryStage.setScene(scene);

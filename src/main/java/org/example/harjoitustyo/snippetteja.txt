@@ -43,3 +43,58 @@
     }
 
      */
+
+         /**
+          * tallennaTiedostoon metodi tallentaa tiedostoon pelikerran tiedot, jotta ennätys voidaan näyttää.
+          */
+         protected void tallennaTiedostoon() {
+             FileWriter kirjoitaTiedostoon = null;
+             try {
+                 kirjoitaTiedostoon = new FileWriter(dataTiedosto);
+                 //kirjotetaan tiedot tiedostoon
+                 kirjoitaTiedostoon.write("\nPelaajanimi: " + this.pelaajaNimi +
+                         "\nSaavutettu taso: " + this.taso +
+                         "\nPisteillä: " + this.pisteet +
+                         "\nPäivänä: " + this.gameDate);
+             } catch (IOException e) {
+                 System.out.println("Virhe kirjoittamisessa tallentaessa");
+             }
+             //tiedoston sulun virhe
+             try {
+                 kirjoitaTiedostoon.close();
+             } catch (IOException e) {
+                 System.out.println("Virhe sulussa tallentaessa");
+             }
+         }
+
+             protected String lueTiedostosta() {
+                 BufferedReader lueTiedosto = null;
+                 StringBuilder ennatysTeksti = new StringBuilder();
+                 try {
+                     lueTiedosto = new BufferedReader(new FileReader(dataTiedosto));
+                     String lueRivi;
+                     while ((lueRivi = lueTiedosto.readLine()) != null) {
+                         ennatysTeksti.append(lueRivi).append("\n");
+                     }
+                 } catch (IOException e) {
+                     System.out.println("Virhe lukemisessa lukiessa.");
+                 } finally {
+                     if (lueTiedosto != null) {
+                         try {
+                             lueTiedosto.close();
+                         } catch (IOException e) {
+                             System.out.println("Virhe sulussa lukiessa");
+                         }
+                     }
+                 }
+                 return ennatysTeksti.toString();
+             }
+
+             public static void main(String[] args) {
+                 //testausta
+                 //Pelaaja testData = new Pelaaja(1,2,3,0,"Peluri");
+                 //testData.lueTiedostosta();
+                 //testData.tallennaTiedostoon();
+
+             }
+         }

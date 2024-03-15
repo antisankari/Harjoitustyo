@@ -1,6 +1,7 @@
 package org.example.harjoitustyo;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -19,9 +20,12 @@ public class Pelaaja implements Serializable {
     private int pisteet = 0;
     private String pelaajaNimi = "";
     private Date gameDate = new Date();
+    private SimpleDateFormat paivaysMuotoilu = new SimpleDateFormat("dd.MM.yyyy");
+    private Pelaaja ennatysPelaaja;
+
 
     //tiedosto
-    private File dataTiedosto = new File("datafile.txt");
+    private File dataTiedosto = new File("datafile.dat");
 
     public Pelaaja() {
         this.taso = taso;
@@ -34,12 +38,11 @@ public class Pelaaja implements Serializable {
         if (!dataTiedosto.exists()) {
             try {
                 dataTiedosto.createNewFile();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 System.out.println("Tiedosto on jo olemassa.");
             }
-        } else {
-            lueTiedostosta();
         }
+        ennatysPelaaja = lueTiedostosta();
     }
 
     public int getTaso() {
@@ -79,24 +82,27 @@ public class Pelaaja implements Serializable {
         this.pelaajaNimi = pelaajaNimi;
     }
 
+    public Pelaaja getEnnatysPelaaja(){
+        return ennatysPelaaja;
+    }
+
     /**
      * tallennaTiedostoon metodi tallentaa tiedostoon pelikerran tiedot, jotta ennätys voidaan näyttää.
      */
     protected void tallennaTiedostoon() {
-        FileWriter kirjoitaTiedostoon = null;
+        FileOutputStream tiedostoStream = null;
+        ObjectOutputStream pelaajaStream = null;
         try {
-            kirjoitaTiedostoon = new FileWriter(dataTiedosto);
+            tiedostoStream = new FileOutputStream(dataTiedosto);
+            pelaajaStream = new ObjectOutputStream(tiedostoStream);
             //kirjotetaan tiedot tiedostoon
-            kirjoitaTiedostoon.write("\nPelaajanimi: " + this.pelaajaNimi +
-                    "\nSaavutettu taso: " + this.taso +
-                    "\nPisteillä: " + this.pisteet +
-                    "\nPäivänä: " + this.gameDate);
+            pelaajaStream.writeObject(this);
         } catch (IOException e) {
             System.out.println("Virhe kirjoittamisessa tallentaessa");
         }
         //tiedoston sulun virhe
         try {
-            kirjoitaTiedostoon.close();
+            tiedostoStream.close();
         } catch (IOException e) {
             System.out.println("Virhe sulussa tallentaessa");
         }
@@ -143,27 +149,36 @@ public class Pelaaja implements Serializable {
     }
     */
 
-    protected String lueTiedostosta() {
-        BufferedReader lueTiedosto = null;
-        StringBuilder ennatysTeksti = new StringBuilder();
+    protected Pelaaja lueTiedostosta() {
+        FileInputStream tiedostoStream = null;
+        ObjectInputStream pelaajaStream = null;
+        Pelaaja ennatysPelaaja = null;
         try {
-            lueTiedosto = new BufferedReader(new FileReader(dataTiedosto));
-            String lueRivi;
-            while ((lueRivi = lueTiedosto.readLine()) != null) {
-                ennatysTeksti.append(lueRivi).append("\n");
-            }
+            tiedostoStream = new FileInputStream(dataTiedosto);
+            pelaajaStream = new ObjectInputStream(tiedostoStream);
+            ennatysPelaaja = (Pelaaja) pelaajaStream.readObject();
         } catch (IOException e) {
-            System.out.println("Virhe lukemisessa lukiessa.");
+            System.out.println("Virhe lukemisessa lukiessa." + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e); //en ymmärrä miksi IntelliJ vaatii tämän, muuten ei toimi, autogeneroitu
         } finally {
-            if (lueTiedosto != null) {
+            if (tiedostoStream != null) {
                 try {
-                    lueTiedosto.close();
+                    tiedostoStream.close();
                 } catch (IOException e) {
-                    System.out.println("Virhe sulussa lukiessa");
+                    System.out.println("Virhe sulussa lukiessa" + e.getMessage());
                 }
             }
         }
-        return ennatysTeksti.toString();
+        return ennatysPelaaja;
+    }
+
+    @Override
+    public String toString() {
+        return "Nimimerkki: " + pelaajaNimi + "\n" +
+                "Taso: " + taso + "\n" +
+                "Pisteet: " + pisteet + "\n" +
+                "Päivämäärä: " + paivaysMuotoilu.format(gameDate);
     }
 
     public static void main(String[] args) {
@@ -171,6 +186,20 @@ public class Pelaaja implements Serializable {
         //Pelaaja testData = new Pelaaja(1,2,3,0,"Peluri");
         //testData.lueTiedostosta();
         //testData.tallennaTiedostoon();
+        //Pelaaja tulostus = new Pelaaja();
+        //tulostus.setTaso(10);
+        //tulostus.setPisteet(500);
+        //tulostus.setPelaajaNimi("testiukkeli");
+        //tulostus.tallennaTiedostoon();
+        /*
+        tulostus.lueTiedostosta();
+        Pelaaja ennatysPelaaja = tulostus.lueTiedostosta();
+        if (ennatysPelaaja != null) {
+            System.out.println(ennatysPelaaja);
+        } else {
+            System.out.println("asdasd");
+        }
 
+         */
     }
 }
