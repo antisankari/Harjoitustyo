@@ -15,8 +15,6 @@ import java.util.Date;
 public class Pelaaja implements Serializable {
     //pelidata
     private int taso = 1;
-    private int sekvenssiAloitus = 3;
-    private int sekvenssi = 0;
     private int pisteet = 0;
     private String pelaajaNimi = "";
     private Date gameDate = new Date();
