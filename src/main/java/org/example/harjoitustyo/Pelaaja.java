@@ -29,8 +29,6 @@ public class Pelaaja implements Serializable {
 
     public Pelaaja() {
         this.taso = taso;
-        this.sekvenssiAloitus = sekvenssiAloitus; //mahdollisesti tarpeeton
-        this.sekvenssi = sekvenssi; //mahdollisesti tarpeeton
         this.pisteet = pisteet;
         this.pelaajaNimi = pelaajaNimi;
         this.gameDate = gameDate;
@@ -45,40 +43,15 @@ public class Pelaaja implements Serializable {
         ennatysPelaaja = lueTiedostosta();
     }
 
-    public int getTaso() {
-        return taso;
-    }
-
     public void setTaso(int level) {
         this.taso = level;
-    }
-
-    public int getSekvenssiAloitus() {
-        return sekvenssiAloitus;
-    }
-
-    public void setSekvenssiAloitus(int sequStart) {
-        this.sekvenssiAloitus = sequStart;
-    }
-
-    public int getSekvenssi() {
-        return sekvenssi;
-    }
-
-    public void setSekvenssi(int sekvenssi) {
-        this.sekvenssi = sekvenssi;
     }
 
     public void setPisteet(int pisteet) {
         this.pisteet += pisteet;
     }
 
-    public String getPelaajaNimi() {
-        return pelaajaNimi;
-    }
-
     public void setPelaajaNimi(String pelaajaNimi) {
-        //System.out.println(pelaajaNimi);
         this.pelaajaNimi = pelaajaNimi;
     }
 
