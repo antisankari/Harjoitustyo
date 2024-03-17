@@ -88,11 +88,14 @@ public class Pelilogiikka {
         }
     }
 
-
     //lopetus
+    protected void lopetaPeli() {
+        if (pelaaja.getEnnatysPelaaja() == null || pelaaja.getPisteet() > pelaaja.getEnnatysPelaaja().getPisteet()) {
+            pelaaja.tallennaTiedostoon();
+        }
+    }
 
     //kuuntelija sekvenssille
-
     /**
      * setSekvenssiKuuntelija toteuttaa oliolle kuuntelijan, joka seuraa sekvenssi listan muutoksia.
      * @param sekvenssiKuuntelija sekvenssiKuuntelijan ilmentymä

@@ -3,6 +3,7 @@ package org.example.harjoitustyo;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,7 +33,8 @@ public class Kayttoliittyma extends Application {
     protected Button punainen;
     protected Button sininen;
     protected Button vihrea;
-    private Button keltainen;
+    protected Button keltainen;
+    private Button lopetaPeli;
 
     //alaosa jossa on toiminnot ja ennätys
     private Line jakaja;
@@ -93,6 +95,11 @@ public class Kayttoliittyma extends Application {
         aloita.setLayoutX(150);
         aloita.setLayoutY(390);
 
+        lopetaPeli = new Button();
+        lopetaPeli.setText("Sammuta");
+        lopetaPeli.setLayoutY(470);
+        lopetaPeli.setLayoutX(330);
+
         ennatys = new Label();
         //ennatys.setStroke(Color.WHITESMOKE);
         ennatys.setTextFill(Color.WHITESMOKE);
@@ -116,7 +123,7 @@ public class Kayttoliittyma extends Application {
         nimiKysely.setPrefSize(400,500);
         nimiKysely.getChildren().addAll(pohja, btSyotaNimi, tfNimiKentta);
 
-        peliIkkuna.getChildren().addAll(punainen,sininen,vihrea,keltainen,jakaja,aloita,ennatys,nimiKysely);
+        peliIkkuna.getChildren().addAll(punainen,sininen,vihrea,keltainen,jakaja,aloita,lopetaPeli,ennatys,nimiKysely);
     }
 
     /**
@@ -253,5 +260,10 @@ public class Kayttoliittyma extends Application {
         //aloita napin painaminen käynnistää ensimmäisen sekvenssin
         aloita.setOnAction(event -> peliLogiikka.luoSekvenssi(peliLogiikka.getLahtoTaso()));
 
+        //lopeta napin painaminen sammuttaa pelin ja sulkee ikkunan
+        lopetaPeli.setOnAction(event -> {
+            peliLogiikka.lopetaPeli();
+            Platform.exit();
+        });
     }
 }
