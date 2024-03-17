@@ -6,7 +6,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -63,6 +62,8 @@ public class Kayttoliittyma extends Application {
 
     /**
      * piirraPeli metodi piirtää peli-ikkunan ohjelman käynnistyessä.
+     * <br>
+     * Peli-ikkunan piirto pitää sisällään kaikki painikkeet, peliruudun jne.
      */
     private void piirraPeli() {
         peliIkkuna = new Pane();
