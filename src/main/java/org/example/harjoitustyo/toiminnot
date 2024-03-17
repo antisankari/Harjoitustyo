@@ -1,18 +1,18 @@
 Käyttöliittymä
 - pelilauta < tehty
 - käynnistä nappi < tehty
-- parhaan tuloksen näyttö
+- parhaan tuloksen näyttö < tehty
 - painikkeiden piirto < tehty
 - nappien vilkutus järjestyksessä < tehty
 - värimaailman muutos
-- graafinen näyttö, jossa syötetään pelaajan nimi
+- graafinen näyttö, jossa syötetään pelaajan nimi < tehty
 
 
 Pelilogiikka
 - tason nosto < tehty
 - sekvenssi painikkeille < tehty
 - sekvenssin osien lisäys < tehty
-- pelin katkaisu
+- pelin katkaisu < tehty
 - pelin käynnistys < tehty
 
 
@@ -20,9 +20,9 @@ Pelaaja
 - pelaajan nimi < tehty
 - pelaajan taso < tehty
 - get ja set metodit < tehty
-- pelipäivä
+- pelipäivä < tehty
 - viimeisimmän läpäistyn tason kesto
-- tietojen tallennus ja luku tiedostosta <- omaan luokkaan?
+- tietojen tallennus ja luku tiedostosta <- omaan luokkaan? < ei siirretä
 
-Ennätyksen hallinta pitää hoitaa. Tarkasta onko uusi tulos parempi kuin tiedostosta luettu.
-Tarkasta ennätyksen tulostuminen oikein, nyt tapahtuu jotain jännää.
+Ennätyksen hallinta pitää hoitaa. Tarkasta onko uusi tulos parempi kuin tiedostosta luettu. < korjattu
+Tarkasta ennätyksen tulostuminen oikein, nyt tapahtuu jotain jännää. < korjattu

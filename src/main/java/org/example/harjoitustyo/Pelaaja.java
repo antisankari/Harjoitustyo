@@ -100,7 +100,7 @@ public class Pelaaja implements Serializable {
         } catch (IOException e) {
             System.out.println("Virhe lukemisessa lukiessa." + e.getMessage());
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e); //en ymmärrä miksi IntelliJ vaatii tämän, muuten ei toimi, autogeneroitu
+            throw new RuntimeException(e); //en keksi miksi IntelliJ vaatii tämän, muuten ei toimi, autogeneroitu
         } finally {
             if (tiedostoStream != null) {
                 try {
@@ -115,7 +115,8 @@ public class Pelaaja implements Serializable {
 
     @Override
     public String toString() {
-        return "Nimimerkki: " + pelaajaNimi + "\n" +
+        return "Ennätys\n" +
+                "Nimimerkki: " + pelaajaNimi + "\n" +
                 "Taso: " + taso + "\n" +
                 "Pisteet: " + pisteet + "\n" +
                 "Päivämäärä: " + paivaysMuotoilu.format(gameDate);

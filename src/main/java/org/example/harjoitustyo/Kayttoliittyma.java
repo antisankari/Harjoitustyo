@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -47,12 +48,18 @@ public class Kayttoliittyma extends Application {
     private Button btSyotaNimi;
     private Rectangle pohja;
 
+    //suojaruutu
+    private Pane suojaruutu;
+
     //välähdysten animointi
-    SequentialTransition vilkutusJarjestys;
+    protected SequentialTransition vilkutusJarjestys;
 
     //ajastimet
     final private int tauonKesto = 1000;
     final private int valaytysKesto = 250;
+
+    //peliruudun värin valinta
+    //private ColorPicker variValinta = new ColorPicker();
 
     /**
      * piirraPeli metodi piirtää peli-ikkunan ohjelman käynnistyessä.
@@ -60,6 +67,7 @@ public class Kayttoliittyma extends Application {
     private void piirraPeli() {
         peliIkkuna = new Pane();
         peliIkkuna.setStyle("-fx-background-color: #000000;");
+        //peliIkkuna.setStyle("-fx-background-color:" + variValinta.getValue() + ";");
 
         punainen = new Button();
         punainen.setLayoutY(50);
@@ -92,8 +100,8 @@ public class Kayttoliittyma extends Application {
         aloita = new Button();
         aloita.setText("Aloita peli");
         aloita.setPrefSize(100,25);
+        aloita.setLayoutY(380);
         aloita.setLayoutX(150);
-        aloita.setLayoutY(390);
 
         lopetaPeli = new Button();
         lopetaPeli.setText("Sammuta");
@@ -103,8 +111,7 @@ public class Kayttoliittyma extends Application {
         ennatys = new Label();
         //ennatys.setStroke(Color.WHITESMOKE);
         ennatys.setTextFill(Color.WHITESMOKE);
-        ennatys.setText("Testiteksti");
-        ennatys.setLayoutY(420);
+        ennatys.setLayoutY(410);
         ennatys.setLayoutX(10);
 
         pohja = new Rectangle(400,500);
@@ -123,7 +130,19 @@ public class Kayttoliittyma extends Application {
         nimiKysely.setPrefSize(400,500);
         nimiKysely.getChildren().addAll(pohja, btSyotaNimi, tfNimiKentta);
 
-        peliIkkuna.getChildren().addAll(punainen,sininen,vihrea,keltainen,jakaja,aloita,lopetaPeli,ennatys,nimiKysely);
+        //variValinta.setLayoutX(300);
+        //variValinta.setLayoutY(300);
+
+        suojaruutu = new Pane();
+        suojaruutu.setPrefSize(310,310);
+        suojaruutu.setLayoutY(45);
+        suojaruutu.setLayoutX(45);
+        //suojaruutu.setStyle("-fx-background-color: #c8c800;");
+
+        peliIkkuna.getChildren().addAll(
+                punainen,sininen,vihrea,keltainen,
+                jakaja,aloita,lopetaPeli,ennatys,suojaruutu,nimiKysely);
+        suojaruutu.toBack();
     }
 
     /**
@@ -210,8 +229,10 @@ public class Kayttoliittyma extends Application {
                 tauko.setOnFinished(event -> valaytaNappia(keltainen, "keltainen"));
             }
             vilkutusJarjestys.getChildren().add(tauko);
+
         }
         vilkutusJarjestys.play();
+        vilkutusJarjestys.setOnFinished(event -> suojaruutu.toBack());
     }
 
     public static void main(String[] args) {
@@ -258,7 +279,10 @@ public class Kayttoliittyma extends Application {
         });
 
         //aloita napin painaminen käynnistää ensimmäisen sekvenssin
-        aloita.setOnAction(event -> peliLogiikka.luoSekvenssi(peliLogiikka.getLahtoTaso()));
+        aloita.setOnAction(event -> {
+            suojaruutu.toFront();
+            peliLogiikka.luoSekvenssi(peliLogiikka.getLahtoTaso());
+        });
 
         //lopeta napin painaminen sammuttaa pelin ja sulkee ikkunan
         lopetaPeli.setOnAction(event -> {
