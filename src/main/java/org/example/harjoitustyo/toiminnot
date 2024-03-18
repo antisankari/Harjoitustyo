@@ -12,7 +12,7 @@ Pelilogiikka
 - tason nosto < tehty
 - sekvenssi painikkeille < tehty
 - sekvenssin osien lisäys < tehty
-- pelin katkaisu < tehty
+- pelin sammutus < tehty
 - pelin käynnistys < tehty
 
 
@@ -28,4 +28,4 @@ Ennätyksen hallinta pitää hoitaa. Tarkasta onko uusi tulos parempi kuin tiedo
 Tarkasta ennätyksen tulostuminen oikein, nyt tapahtuu jotain jännää. < korjattu
 
 Ennätyksen päivittyminen heti tekemättä
-Väärästä arvauksesta pelin lopetusruudun piirto
+Väärästä arvauksesta pelin lopetusruudun piirto < tehty

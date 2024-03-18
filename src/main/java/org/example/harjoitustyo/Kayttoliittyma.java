@@ -50,15 +50,17 @@ public class Kayttoliittyma extends Application {
     //suojaruutu
     private Pane suojaruutu;
 
+    //loppuruutu
+    private Pane loppuruutu;
+    private Label peliohi;
+    private Label aloitauusi;
+
     //välähdysten animointi
     protected SequentialTransition vilkutusJarjestys;
 
     //ajastimet
     final private int tauonKesto = 1000;
     final private int valaytysKesto = 250;
-
-    //peliruudun värin valinta
-    //private ColorPicker variValinta = new ColorPicker();
 
     /**
      * piirraPeli metodi piirtää peli-ikkunan ohjelman käynnistyessä.
@@ -68,7 +70,6 @@ public class Kayttoliittyma extends Application {
     private void piirraPeli() {
         peliIkkuna = new Pane();
         peliIkkuna.setStyle("-fx-background-color: #000000;");
-        //peliIkkuna.setStyle("-fx-background-color:" + variValinta.getValue() + ";");
 
         punainen = new Button();
         punainen.setLayoutY(50);
@@ -140,10 +141,33 @@ public class Kayttoliittyma extends Application {
         suojaruutu.setLayoutX(45);
         //suojaruutu.setStyle("-fx-background-color: #c8c800;");
 
+        loppuruutu = new Pane();
+        loppuruutu.setPrefSize(310,310);
+        loppuruutu.setLayoutY(45);
+        loppuruutu.setLayoutX(45);
+        loppuruutu.setStyle("-fx-background-color: #000000;");
+
+        peliohi = new Label();
+        peliohi.setText("Muistit väärin. Peli ohi!\n\n Aloita uusi peli alta!");
+        peliohi.setLayoutY(120);
+        peliohi.setLayoutX(100);
+        peliohi.setTextFill(Color.WHITE);
+
+        loppuruutu.getChildren().add(peliohi);
+
         peliIkkuna.getChildren().addAll(
                 punainen,sininen,vihrea,keltainen,
                 jakaja,aloita,lopetaPeli,ennatys,suojaruutu,nimiKysely);
         suojaruutu.toBack();
+    }
+
+    private void naytaLoppuruutu() {
+        peliIkkuna.getChildren().add(loppuruutu);
+        loppuruutu.toFront();
+    }
+
+    private void piilotaLoppuruutu() {
+        peliIkkuna.getChildren().remove(loppuruutu);
     }
 
     /**
@@ -254,6 +278,13 @@ public class Kayttoliittyma extends Application {
         peliLogiikka = new Pelilogiikka(pelaaja);
 
         peliLogiikka.setSekvenssiKuuntelija(sekvenssi -> sekvenssinEsitys(sekvenssi));
+        peliLogiikka.setPeliKaynnissaKuuntelija(peliKaynnissa -> {
+            if (peliKaynnissa == false) {
+                naytaLoppuruutu();
+            } else {
+                piilotaLoppuruutu();
+            }
+        });
         piirraPeli();
         nappienTapahtumat();
 

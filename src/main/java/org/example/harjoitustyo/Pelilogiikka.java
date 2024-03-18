@@ -19,8 +19,10 @@ public class Pelilogiikka {
     private int taso;
     private int uusiTaso = 0;
     final private int lahtoTaso = 0;
+    private boolean peliKaynnissa;
     //tiedonsiirtoon rajapinta
     private SekvenssiKuuntelija sekvenssiKuuntelija;
+    private PeliKaynnissaKuuntelija peliKaynnissaKuuntelija;
 
     private Pelaaja pelaaja;
 
@@ -42,6 +44,7 @@ public class Pelilogiikka {
      * @param tasoNumero kertoo metodille montako lisämerkkiä lisätään listaan
      */
     protected void luoSekvenssi(int tasoNumero) {
+        setPeliKaynnissa(true);
         sekvenssi.clear();
         this.taso = tasoNumero;
         Random rand = new Random();
@@ -79,7 +82,8 @@ public class Pelilogiikka {
                 luoSekvenssi(uusiTaso);
             }
         } else {
-            System.out.println("väärin meni");
+            setPeliKaynnissa(false);
+            System.out.println(peliKaynnissa);
             pelaaja.setPisteet(sekvenssinIndeksi - 1); //lisätään oikeiden klikkausten määrä pisteisiin
             sekvenssinIndeksi = 0; //jos ei aseteta 0, alkaa uusi sekvenssi väärästä kohdasta
             if (pelaaja.getEnnatysPelaaja() == null || pelaaja.getPisteet() > pelaaja.getEnnatysPelaaja().getPisteet()) {
@@ -102,6 +106,17 @@ public class Pelilogiikka {
      */
     public void setSekvenssiKuuntelija(SekvenssiKuuntelija sekvenssiKuuntelija){
         this.sekvenssiKuuntelija = sekvenssiKuuntelija;
+    }
+
+    public void setPeliKaynnissaKuuntelija(PeliKaynnissaKuuntelija peliKaynnissaKuuntelija) {
+        this.peliKaynnissaKuuntelija = peliKaynnissaKuuntelija;
+    }
+
+    public void setPeliKaynnissa(boolean peliKaynnissa) {
+        this.peliKaynnissa = peliKaynnissa;
+        if (peliKaynnissaKuuntelija != null) {
+            peliKaynnissaKuuntelija.onkoPeliKaynnissa(peliKaynnissa);
+        }
     }
 
     public static void main(String[] args) {
