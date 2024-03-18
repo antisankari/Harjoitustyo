@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -148,7 +149,8 @@ public class Kayttoliittyma extends Application {
         loppuruutu.setStyle("-fx-background-color: #000000;");
 
         peliohi = new Label();
-        peliohi.setText("Muistit väärin. Peli ohi!\n\n Aloita uusi peli alta!");
+        peliohi.setText("Muistit väärin. Peli ohi!\n\nAloita uusi peli alta!");
+        peliohi.setTextAlignment(TextAlignment.CENTER);
         peliohi.setLayoutY(120);
         peliohi.setLayoutX(100);
         peliohi.setTextFill(Color.WHITE);

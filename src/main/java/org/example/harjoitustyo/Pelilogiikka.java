@@ -86,7 +86,8 @@ public class Pelilogiikka {
             System.out.println(peliKaynnissa);
             pelaaja.setPisteet(sekvenssinIndeksi - 1); //lisätään oikeiden klikkausten määrä pisteisiin
             sekvenssinIndeksi = 0; //jos ei aseteta 0, alkaa uusi sekvenssi väärästä kohdasta
-            if (pelaaja.getEnnatysPelaaja() == null || pelaaja.getPisteet() > pelaaja.getEnnatysPelaaja().getPisteet()) {
+            if (pelaaja.getEnnatysPelaaja() == null || pelaaja.getPisteet() > pelaaja.getEnnatysPelaaja().getPisteet())
+            {
                 pelaaja.tallennaTiedostoon();
             }
         }
@@ -118,6 +119,8 @@ public class Pelilogiikka {
             peliKaynnissaKuuntelija.onkoPeliKaynnissa(peliKaynnissa);
         }
     }
+
+
 
     public static void main(String[] args) {
         //Pelilogiikka testi = new Pelilogiikka();
