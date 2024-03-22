@@ -13,17 +13,49 @@ import java.util.Random;
  */
 public class Pelilogiikka {
 
+    /**
+     * ArrayList merkkilista tallentaa halutun merkkisekvenssin.
+     */
     protected ArrayList<Character> sekvenssi = new ArrayList<Character>();
+    /**
+     * variValinta merkkijono toimii pohjana, josta arvotaan seuraava merkki lisättäväksi ArrayListiin
+     */
     private String variValinta = "RGBY";
+    /**
+     * sekvenssinIndeksi tallettaa tiedon, missä kohdassa sekvenssiä tarkastus menee.
+     */
     private int sekvenssinIndeksi;
+    /**
+     * taso tallentaa tiedon, tämänhetkisestä tasosta pelissä.
+     */
     private int taso;
+    /**
+     * uusiTaso tallettaa tiedon mille tasolle siirrytään.
+     */
     private int uusiTaso = 0;
+    /**
+     * lahtoTaso tallettaa tiedon tasosta, josta peli aina aloitetaan.
+     */
     final private int lahtoTaso = 0;
+    /**
+     * peliKaynnissa boolean muuttuja tallentaa tiedon onko peli käynnissä.
+     */
     private boolean peliKaynnissa;
     //tiedonsiirtoon rajapinta
+    /**
+     * SekvenssiKuuntelija rajapinta seuraa sekvenssi listan tilannetta. Kun sekvenssilista päivittyy, tieto näkyy
+     * Kayttoliittyma luokalle.
+     */
     private SekvenssiKuuntelija sekvenssiKuuntelija;
+    /**
+     * PeliKaynnissaKuuntelija rajapinta seuraa peliKaynnissa muuttujaa ja tilan muuttuessa tieto näkyy Kayttoliittyma
+     * luokalle.
+     */
     private PeliKaynnissaKuuntelija peliKaynnissaKuuntelija;
 
+    /**
+     * Alustetaan Pelaaja olio, joka toimii pelaajan tietovarastona.
+     */
     private Pelaaja pelaaja;
 
     public int getLahtoTaso() {
@@ -32,7 +64,7 @@ public class Pelilogiikka {
 
     /**
      * Pelilogiikka konstruktori saa parametriksi Pelaaja luokan olion, jotta pelaajaluokan metodien käyttö
-     * on mahdollista.
+     * on mahdollista. Korvaa alustetun pelaaja olion.
      */
     public Pelilogiikka(Pelaaja pelaaja) {
         this.pelaaja = pelaaja;
@@ -94,6 +126,10 @@ public class Pelilogiikka {
     }
 
     //lopetus
+
+    /**
+     * lopetaPeli metodi varmistaa, että mahdollinen ennätys tallennetaan myös jos peli lopetetaan kesken.
+     */
     protected void lopetaPeli() {
         if (pelaaja.getEnnatysPelaaja() == null || pelaaja.getPisteet() > pelaaja.getEnnatysPelaaja().getPisteet()) {
             pelaaja.tallennaTiedostoon();

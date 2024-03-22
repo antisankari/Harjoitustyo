@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Pelaaja
+ * Pelaaja-luokka
  * <br>
  * Pelaaja luokka pitää kirjaa pelaajan tiedoista kuten nimestä, pisteistä ja päivämäärästä, jolloin tulos on
  * pelattu.
@@ -14,14 +14,33 @@ import java.util.Date;
  */
 public class Pelaaja implements Serializable {
     //pelidata
+    /**
+     * Pelaajan taso. Taso nousee kun sekvenssi on läpäisty.
+     */
     private int taso = 1;
+    /**
+     * Pelaajan keräämät pisteet. Päivitetään sekvenssin päivittyessä tai pelin loppuessa.
+     */
     private int pisteet = 0;
+    /**
+     * Pelaajan antama nimimerkki.
+     */
     private String pelaajaNimi = "";
+    /**
+     * Pelatun pelin päivämäärä. Kerää tiedon pelin päivämäärästä ennätystä varten.
+     */
     private Date gameDate = new Date();
     final private SimpleDateFormat paivaysMuotoilu = new SimpleDateFormat("dd.MM.yyyy");
+    /**
+     * Pelaaja-olion luonti ennätyspelaajaksi, joka päivitetään tiedostosta ja tallennetaan tiedostoon
+     * kun ennätys päivittyy.
+     */
     private Pelaaja ennatysPelaaja;
 
     //tiedosto
+    /**
+     * Tiedosto, johon ennätyspelaaja olio tallennetaan ja josta ennätyspelaaja luetaan.
+     */
     final private File dataTiedosto = new File("datafile.dat");
 
     /**
@@ -43,21 +62,42 @@ public class Pelaaja implements Serializable {
         }
     }
 
-    public void setTaso(int level) {
-        this.taso = level;
+    /**
+     * setTaso metodilla asetetaan Taso muuttujalle uusi arvo.
+     * @param taso uusi taso, jolla pelaaja on
+     */
+    public void setTaso(int taso) {
+        this.taso = taso;
     }
 
+    /**
+     * setPisteet lisää olemassa oleviin pisteisiin tasosta saadut pisteet.
+     * @param pisteet saadut pisteet.
+     */
     public void setPisteet(int pisteet) {
         this.pisteet += pisteet;
     }
+
+    /**
+     * getPisteet hakee olion pisteet tallennettavaksi tiedostoon-
+     * @return saavutetut pisteet int muodossa.
+     */
     public int getPisteet() {
         return pisteet;
     }
 
+    /**
+     * setPelaajaNimi asettaa pelaajaoliolle pelaajan valitseman nimimerkin.
+     * @param pelaajaNimi pelaajan antama nimimerkki.
+     */
     public void setPelaajaNimi(String pelaajaNimi) {
         this.pelaajaNimi = pelaajaNimi;
     }
 
+    /**
+     * getEnnatysPelaaja hakee ennatysPelaaja olion tietoineen.
+     * @return palauttaa ennatysPelaaja olion.
+     */
     public Pelaaja getEnnatysPelaaja(){
         return ennatysPelaaja;
     }
@@ -74,13 +114,13 @@ public class Pelaaja implements Serializable {
             //kirjotetaan tiedot tiedostoon
             pelaajaStream.writeObject(this);
         } catch (IOException e) {
-            System.out.println("Virhe kirjoittamisessa tallentaessa");
+            System.out.println("Virhe kirjoittamisessa tallentaessa" + " " + e.getMessage());
         }
         //tiedoston sulun virhe
         try {
             tiedostoStream.close();
         } catch (IOException e) {
-            System.out.println("Virhe sulussa tallentaessa");
+            System.out.println("Virhe sulussa tallentaessa" + " " + e.getMessage());
         }
     }
 
@@ -113,6 +153,10 @@ public class Pelaaja implements Serializable {
         return ennatysPelaaja;
     }
 
+    /**
+     * toString muodostaa luokan tiedoista tekstin.
+     * @return palauttaa String muotoisena tiedot tulostettavaksi.
+     */
     @Override
     public String toString() {
         return "Ennätys\n" +

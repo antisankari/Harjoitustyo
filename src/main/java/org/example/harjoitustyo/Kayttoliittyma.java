@@ -19,7 +19,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 
 /**
- * Kayttoliittyma
+ * Kayttoliittyma-luokka
  * <br>
  * Kayttoliittyma luokka piirtää pelin grafiikan ja lähettää Pelilogiikka luokalle kutsun käynnistää pelilogiikka.
  * Käyttöliittymässä toteutetaan painikkeiden vilkkuminen painaessa sekä pelilogiikan sekvenssin mukaan.
@@ -112,7 +112,6 @@ public class Kayttoliittyma extends Application {
         lopetaPeli.setLayoutX(330);
 
         ennatys = new Label();
-        //ennatys.setStroke(Color.WHITESMOKE);
         ennatys.setTextFill(Color.WHITESMOKE);
         ennatys.setLayoutY(410);
         ennatys.setLayoutX(10);
@@ -133,14 +132,10 @@ public class Kayttoliittyma extends Application {
         nimiKysely.setPrefSize(400,500);
         nimiKysely.getChildren().addAll(pohja, btSyotaNimi, tfNimiKentta);
 
-        //variValinta.setLayoutX(300);
-        //variValinta.setLayoutY(300);
-
         suojaruutu = new Pane();
         suojaruutu.setPrefSize(310,310);
         suojaruutu.setLayoutY(45);
         suojaruutu.setLayoutX(45);
-        //suojaruutu.setStyle("-fx-background-color: #c8c800;");
 
         loppuruutu = new Pane();
         loppuruutu.setPrefSize(310,310);
@@ -163,11 +158,17 @@ public class Kayttoliittyma extends Application {
         suojaruutu.toBack();
     }
 
+    /**
+     * naytaLoppuruutu metodi tuo näkyviin loppuruudun, mikäli tehdään väärä arvaus.
+     */
     private void naytaLoppuruutu() {
         peliIkkuna.getChildren().add(loppuruutu);
         loppuruutu.toFront();
     }
 
+    /**
+     * piilotaLoppuruutu metodi piilottaa loppuruudun, mikäli loppuruutu on piirretty.
+     */
     private void piilotaLoppuruutu() {
         peliIkkuna.getChildren().remove(loppuruutu);
     }
@@ -230,7 +231,6 @@ public class Kayttoliittyma extends Application {
         });
     }
 
-    //kuuntelijan tuoman tiedon perusteella välkkyvien ruutujen animaatio
     /**
      * sekvenssinEsitys näyttää grafiikalla halutun painelusekvenssin nappien vilkutuksena.
      * Metodia kutsutaan aina, kun Pelilogiikka luokan sekvenssi lista päivittyy.
