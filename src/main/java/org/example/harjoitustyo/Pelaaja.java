@@ -52,7 +52,7 @@ public class Pelaaja implements Serializable {
             try {
                 dataTiedosto.createNewFile();
             } catch (IOException e) {
-                System.out.println("Tiedosto on jo olemassa.");
+                System.out.println("Tiedosto on jo olemassa. " + e.getMessage());
             }
         }
         if (dataTiedosto.length() > 0) {

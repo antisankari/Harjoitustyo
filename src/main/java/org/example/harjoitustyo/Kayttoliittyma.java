@@ -292,12 +292,10 @@ public class Kayttoliittyma extends Application {
 
         //haetaan ennätyksen tiedot
         if (pelaaja.getEnnatysPelaaja() != null) {
-            System.out.println("ennatys ei ole tyhjä");
             ennatys.setText(pelaaja.getEnnatysPelaaja().toString());
         } else {
             ennatys.setText("Ei olemassa olevaa ennätystä");
         }
-
 
         Scene scene = new Scene(peliIkkuna,400,500);
         primaryStage.setScene(scene);

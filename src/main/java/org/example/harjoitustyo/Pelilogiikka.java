@@ -110,7 +110,6 @@ public class Pelilogiikka {
                 pelaaja.setPisteet(sekvenssinIndeksi);
                 pelaaja.setTaso(uusiTaso);
                 sekvenssinIndeksi = 0; //jos ei aseteta 0, alkaa uusi sekvenssi väärästä kohdasta
-                System.out.println("Saavutit tason " + uusiTaso);
                 luoSekvenssi(uusiTaso);
             }
         } else {
@@ -138,25 +137,32 @@ public class Pelilogiikka {
 
     //kuuntelija sekvenssille
     /**
-     * setSekvenssiKuuntelija toteuttaa oliolle kuuntelijan, joka seuraa sekvenssi listan muutoksia.
+     * setSekvenssiKuuntelija toteuttaa olion sekvenssi muuttujalle kuuntelijan, joka seuraa sekvenssi listan muutoksia.
      * @param sekvenssiKuuntelija sekvenssiKuuntelijan ilmentymä
      */
     public void setSekvenssiKuuntelija(SekvenssiKuuntelija sekvenssiKuuntelija){
         this.sekvenssiKuuntelija = sekvenssiKuuntelija;
     }
 
+    /**
+     * setPeliKaynnissaKuuntelija toteuttaa olion peliKaynnissa muuttujalle kuuntelijan.
+     * @param peliKaynnissaKuuntelija PeliKaynnissaKuuntelijan ilmentymä
+     */
     public void setPeliKaynnissaKuuntelija(PeliKaynnissaKuuntelija peliKaynnissaKuuntelija) {
         this.peliKaynnissaKuuntelija = peliKaynnissaKuuntelija;
     }
 
+    /**
+     * setPeliKaynnissa metodi asettaa peliKaynnissa muuttujalle arvon ja jokainen muutos
+     * kulkeutuu Kayttoliittyma-luokalle tiedoksi.
+     * @param peliKaynnissa peliKaynnissa boolean arvo
+     */
     public void setPeliKaynnissa(boolean peliKaynnissa) {
         this.peliKaynnissa = peliKaynnissa;
         if (peliKaynnissaKuuntelija != null) {
             peliKaynnissaKuuntelija.onkoPeliKaynnissa(peliKaynnissa);
         }
     }
-
-
 
     public static void main(String[] args) {
         //Pelilogiikka testi = new Pelilogiikka();
