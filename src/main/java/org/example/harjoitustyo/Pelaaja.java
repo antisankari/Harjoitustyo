@@ -166,6 +166,7 @@ public class Pelaaja implements Serializable {
                 "Päivämäärä: " + paivaysMuotoilu.format(peliPaiva);
     }
 
+    /*
     public static void main(String[] args) {
         //testausta
         //Pelaaja testData = new Pelaaja(1,2,3,0,"Peluri");
@@ -184,7 +185,6 @@ public class Pelaaja implements Serializable {
         } else {
             System.out.println("asdasd");
         }
-
-         */
     }
+     */
 }

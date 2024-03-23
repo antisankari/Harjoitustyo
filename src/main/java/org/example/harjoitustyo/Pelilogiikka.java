@@ -58,13 +58,22 @@ public class Pelilogiikka {
      */
     private Pelaaja pelaaja;
 
+    /**
+     * setUusiTaso asettaa uusiTaso muuttujan arvoksi 0, jolla varmistetaan uuden pelin alkaminen
+     * tasolta 0.
+     * @param uusiTaso pelin uusi käynnistystaso
+     */
+    public void setUusiTaso(int uusiTaso) {
+        this.uusiTaso = uusiTaso;
+    }
+
     public int getLahtoTaso() {
         return lahtoTaso;
     }
 
     /**
      * Pelilogiikka konstruktori saa parametriksi Pelaaja luokan olion, jotta pelaajaluokan metodien käyttö
-     * on mahdollista. Korvaa alustetun pelaaja olion.
+     * on mahdollista. Korvaa alustetun määrittelemättömän pelaaja olion.
      */
     public Pelilogiikka(Pelaaja pelaaja) {
         this.pelaaja = pelaaja;
@@ -83,7 +92,7 @@ public class Pelilogiikka {
         int ylaraja = 4;
         int alaraja = 0;
 
-        for (int i = 0; i < (taso + 3); i++) {
+        for (int i = 0; i < (this.taso + 3); i++) {
             int indeksi = rand.nextInt(ylaraja - alaraja) + alaraja;
             sekvenssi.add(variValinta.charAt(indeksi));
         }
@@ -104,7 +113,6 @@ public class Pelilogiikka {
     protected void tarkastaPelaajanSyote(Character syote) {
         if (syote.equals(sekvenssi.get(sekvenssinIndeksi))) {
             sekvenssinIndeksi++;
-            //System.out.println("Sekvenssin merkki on :" + sekvenssi.get(sekvenssinIndeksi) + " ja painamasi on " + syote);
             if (sekvenssi.size() == sekvenssinIndeksi) {
                 uusiTaso++;
                 pelaaja.setPisteet(sekvenssinIndeksi);
@@ -113,18 +121,16 @@ public class Pelilogiikka {
                 luoSekvenssi(uusiTaso);
             }
         } else {
-            setPeliKaynnissa(false);
-            System.out.println(peliKaynnissa);
             pelaaja.setPisteet(sekvenssinIndeksi - 1); //lisätään oikeiden klikkausten määrä pisteisiin
             sekvenssinIndeksi = 0; //jos ei aseteta 0, alkaa uusi sekvenssi väärästä kohdasta
             if (pelaaja.getEnnatysPelaaja() == null || pelaaja.getPisteet() > pelaaja.getEnnatysPelaaja().getPisteet())
             {
                 pelaaja.tallennaTiedostoon();
             }
+            pelaaja.lueTiedostosta();
+            setPeliKaynnissa(false);
         }
     }
-
-    //lopetus
 
     /**
      * lopetaPeli metodi varmistaa, että mahdollinen ennätys tallennetaan myös jos peli lopetetaan kesken.
@@ -164,10 +170,14 @@ public class Pelilogiikka {
         }
     }
 
+    /*
     public static void main(String[] args) {
+
         //Pelilogiikka testi = new Pelilogiikka();
         //testi.luoSekvenssi(4);
         //System.out.println("|" + testi.sekvenssi.get(2) + "|");
     }
+
+     */
 
 }

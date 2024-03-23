@@ -76,25 +76,45 @@ public class Kayttoliittyma extends Application {
         punainen.setLayoutY(50);
         punainen.setLayoutX(50);
         punainen.setPrefSize(150,150);
-        punainen.setStyle("-fx-background-color: #c80000;");
+        punainen.setStyle("-fx-background-color: #c80000;" +
+                        "-fx-background-radius: 10em;" +
+                        "-fx-min-width: 150px;" +
+                        "-fx-min-height: 150px;" +
+                        "-fx-max-width: 150px;" +
+                        "-fx-max-height: 150px;");
 
         sininen = new Button();
         sininen.setLayoutY(50);
         sininen.setLayoutX(200);
         sininen.setPrefSize(150,150);
-        sininen.setStyle("-fx-background-color: #0000c8;");
+        sininen.setStyle("-fx-background-color: #0000c8;" +
+                "-fx-background-radius: 10em;" +
+                "-fx-min-width: 150px;" +
+                "-fx-min-height: 150px;" +
+                "-fx-max-width: 150px;" +
+                "-fx-max-height: 150px;");
 
         vihrea = new Button();
         vihrea.setLayoutY(200);
         vihrea.setLayoutX(50);
         vihrea.setPrefSize(150,150);
-        vihrea.setStyle("-fx-background-color: #00c800;");
+        vihrea.setStyle("-fx-background-color: #00c800;" +
+                "-fx-background-radius: 10em;" +
+                "-fx-min-width: 150px;" +
+                "-fx-min-height: 150px;" +
+                "-fx-max-width: 150px;" +
+                "-fx-max-height: 150px;");
 
         keltainen = new Button();
         keltainen.setLayoutY(200);
         keltainen.setLayoutX(200);
         keltainen.setPrefSize(150,150);
-        keltainen.setStyle("-fx-background-color: #c8c800;");
+        keltainen.setStyle("-fx-background-color: #c8c800;" +
+                "-fx-background-radius: 10em;" +
+                "-fx-min-width: 150px;" +
+                "-fx-min-height: 150px;" +
+                "-fx-max-width: 150px;" +
+                "-fx-max-height: 150px;");
 
         jakaja = new Line(0.0,370.0, 500.0, 370.0);
         jakaja.setStroke(Color.DARKGRAY);
@@ -183,16 +203,36 @@ public class Kayttoliittyma extends Application {
         String alkuperainenVari = painike.getStyle();
         switch (vari) {
             case "punainen":
-                painike.setStyle("-fx-background-color: #ff0000");
+                painike.setStyle("-fx-background-color: #ff0000;" +
+                        "-fx-background-radius: 10em;" +
+                        "-fx-min-width: 150px;" +
+                        "-fx-min-height: 150px;" +
+                        "-fx-max-width: 150px;" +
+                        "-fx-max-height: 150px;");
                 break;
             case "sininen":
-                painike.setStyle("-fx-background-color: #0000ff");
+                painike.setStyle("-fx-background-color: #0000ff;" +
+                        "-fx-background-radius: 10em;" +
+                        "-fx-min-width: 150px;" +
+                        "-fx-min-height: 150px;" +
+                        "-fx-max-width: 150px;" +
+                        "-fx-max-height: 150px;");
                 break;
             case "vihrea":
-                painike.setStyle("-fx-background-color: #00ff00");
+                painike.setStyle("-fx-background-color: #00ff00;" +
+                        "-fx-background-radius: 10em;" +
+                        "-fx-min-width: 150px;" +
+                        "-fx-min-height: 150px;" +
+                        "-fx-max-width: 150px;" +
+                        "-fx-max-height: 150px;");
                 break;
             case "keltainen":
-                painike.setStyle("-fx-background-color: #ffff00");
+                painike.setStyle("-fx-background-color: #ffff00;" +
+                        "-fx-background-radius: 10em;" +
+                        "-fx-min-width: 150px;" +
+                        "-fx-min-height: 150px;" +
+                        "-fx-max-width: 150px;" +
+                        "-fx-max-height: 150px;");
                 break;
                 //muistetaan ne breakit siellä...
         }
@@ -237,6 +277,7 @@ public class Kayttoliittyma extends Application {
      * @param sekvenssi sisältää sekvenssi listan, joka päivittyy kun Pelilogiikka luokan olion sekvenssilista päivittyy
      */
     public void sekvenssinEsitys(ArrayList<Character> sekvenssi) {
+        suojaruutu.toFront();
         vilkutusJarjestys = new SequentialTransition();
         for (int indeksi = 0; indeksi < sekvenssi.size(); indeksi++) { //jokaista sekvenssissä olevaa merkkiä kohti
 
@@ -283,6 +324,7 @@ public class Kayttoliittyma extends Application {
         peliLogiikka.setPeliKaynnissaKuuntelija(peliKaynnissa -> {
             if (peliKaynnissa == false) {
                 naytaLoppuruutu();
+                ennatys.setText(pelaaja.getEnnatysPelaaja().toString());
             } else {
                 piilotaLoppuruutu();
             }
@@ -294,7 +336,7 @@ public class Kayttoliittyma extends Application {
         if (pelaaja.getEnnatysPelaaja() != null) {
             ennatys.setText(pelaaja.getEnnatysPelaaja().toString());
         } else {
-            ennatys.setText("Ei olemassa olevaa ennätystä");
+            ennatys.setText("Ei olemassa olevaa ennätystä.");
         }
 
         Scene scene = new Scene(peliIkkuna,400,500);
@@ -308,11 +350,16 @@ public class Kayttoliittyma extends Application {
             pelaaja.setPelaajaNimi(tfNimiKentta.getText());
             nimiKysely.getChildren().removeAll(pohja, tfNimiKentta, btSyotaNimi);
             peliIkkuna.getChildren().remove(nimiKysely);
+            suojaruutu.toFront();
         });
 
         //aloita napin painaminen käynnistää ensimmäisen sekvenssin
         aloita.setOnAction(event -> {
             suojaruutu.toFront();
+            peliLogiikka.setUusiTaso(0);
+            if (this.vilkutusJarjestys != null) {
+                vilkutusJarjestys.stop();
+            }
             peliLogiikka.luoSekvenssi(peliLogiikka.getLahtoTaso());
         });
 
