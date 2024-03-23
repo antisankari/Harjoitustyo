@@ -29,7 +29,7 @@ public class Pelaaja implements Serializable {
     /**
      * Pelatun pelin päivämäärä. Kerää tiedon pelin päivämäärästä ennätystä varten.
      */
-    private Date gameDate = new Date();
+    private Date peliPaiva = new Date();
     final private SimpleDateFormat paivaysMuotoilu = new SimpleDateFormat("dd.MM.yyyy");
     /**
      * Pelaaja-olion luonti ennätyspelaajaksi, joka päivitetään tiedostosta ja tallennetaan tiedostoon
@@ -163,7 +163,7 @@ public class Pelaaja implements Serializable {
                 "Nimimerkki: " + pelaajaNimi + "\n" +
                 "Taso: " + taso + "\n" +
                 "Pisteet: " + pisteet + "\n" +
-                "Päivämäärä: " + paivaysMuotoilu.format(gameDate);
+                "Päivämäärä: " + paivaysMuotoilu.format(peliPaiva);
     }
 
     public static void main(String[] args) {
