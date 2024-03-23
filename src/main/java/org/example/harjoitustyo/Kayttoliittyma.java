@@ -77,11 +77,11 @@ public class Kayttoliittyma extends Application {
         punainen.setLayoutX(50);
         punainen.setPrefSize(150,150);
         punainen.setStyle("-fx-background-color: #c80000;" +
-                        "-fx-background-radius: 10em;" +
-                        "-fx-min-width: 150px;" +
-                        "-fx-min-height: 150px;" +
-                        "-fx-max-width: 150px;" +
-                        "-fx-max-height: 150px;");
+                "-fx-background-radius: 10em;" +
+                "-fx-min-width: 150px;" +
+                "-fx-min-height: 150px;" +
+                "-fx-max-width: 150px;" +
+                "-fx-max-height: 150px;");
 
         sininen = new Button();
         sininen.setLayoutY(50);
