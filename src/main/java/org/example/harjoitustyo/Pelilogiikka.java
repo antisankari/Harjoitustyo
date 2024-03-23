@@ -127,7 +127,6 @@ public class Pelilogiikka {
             {
                 pelaaja.tallennaTiedostoon();
             }
-            pelaaja.lueTiedostosta();
             setPeliKaynnissa(false);
         }
     }

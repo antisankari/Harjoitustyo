@@ -324,7 +324,7 @@ public class Kayttoliittyma extends Application {
         peliLogiikka.setPeliKaynnissaKuuntelija(peliKaynnissa -> {
             if (peliKaynnissa == false) {
                 naytaLoppuruutu();
-                ennatys.setText(pelaaja.getEnnatysPelaaja().toString());
+                ennatys.setText(pelaaja.lueTiedostosta().toString());
             } else {
                 piilotaLoppuruutu();
             }
