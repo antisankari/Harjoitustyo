@@ -4,14 +4,18 @@ import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -31,11 +35,12 @@ public class Kayttoliittyma extends Application {
 
     //yläosan peliruutu, johon asetetaan pelipainikkeet
     private Pane peliIkkuna;
-    protected Button punainen;
-    protected Button sininen;
-    protected Button vihrea;
-    protected Button keltainen;
+    protected Circle punainen;
+    protected Circle sininen;
+    protected Circle vihrea;
+    protected Circle keltainen;
     private Button lopetaPeli;
+    private Label pikaohje;
 
     //alaosa jossa on toiminnot ja ennätys
     private Line jakaja;
@@ -47,6 +52,7 @@ public class Kayttoliittyma extends Application {
     private TextField tfNimiKentta;
     private Button btSyotaNimi;
     private Rectangle pohja;
+    private Label peliohje;
 
     //suojaruutu
     private Pane suojaruutu;
@@ -54,7 +60,6 @@ public class Kayttoliittyma extends Application {
     //loppuruutu
     private Pane loppuruutu;
     private Label peliohi;
-    private Label aloitauusi;
 
     //välähdysten animointi
     protected SequentialTransition vilkutusJarjestys;
@@ -72,49 +77,35 @@ public class Kayttoliittyma extends Application {
         peliIkkuna = new Pane();
         peliIkkuna.setStyle("-fx-background-color: #000000;");
 
-        punainen = new Button();
-        punainen.setLayoutY(50);
-        punainen.setLayoutX(50);
-        punainen.setPrefSize(150,150);
-        punainen.setStyle("-fx-background-color: #c80000;" +
-                "-fx-background-radius: 10em;" +
-                "-fx-min-width: 150px;" +
-                "-fx-min-height: 150px;" +
-                "-fx-max-width: 150px;" +
-                "-fx-max-height: 150px;");
+        punainen = new Circle();
+        punainen.setLayoutY(125);
+        punainen.setLayoutX(125);
+        punainen.setRadius(75);
+        //punainen.setPrefSize(150,150);
+        punainen.setFill(Color.rgb(180,0,0));
 
-        sininen = new Button();
-        sininen.setLayoutY(50);
-        sininen.setLayoutX(200);
-        sininen.setPrefSize(150,150);
-        sininen.setStyle("-fx-background-color: #0000c8;" +
-                "-fx-background-radius: 10em;" +
-                "-fx-min-width: 150px;" +
-                "-fx-min-height: 150px;" +
-                "-fx-max-width: 150px;" +
-                "-fx-max-height: 150px;");
+        sininen = new Circle();
+        sininen.setLayoutY(125);
+        sininen.setLayoutX(275);
+        sininen.setRadius(75);
+        sininen.setFill(Color.rgb(0,0,180));
 
-        vihrea = new Button();
-        vihrea.setLayoutY(200);
-        vihrea.setLayoutX(50);
-        vihrea.setPrefSize(150,150);
-        vihrea.setStyle("-fx-background-color: #00c800;" +
-                "-fx-background-radius: 10em;" +
-                "-fx-min-width: 150px;" +
-                "-fx-min-height: 150px;" +
-                "-fx-max-width: 150px;" +
-                "-fx-max-height: 150px;");
+        vihrea = new Circle();
+        vihrea.setLayoutY(275);
+        vihrea.setLayoutX(125);
+        vihrea.setRadius(75);
+        vihrea.setFill(Color.rgb(0,180,0));
 
-        keltainen = new Button();
-        keltainen.setLayoutY(200);
-        keltainen.setLayoutX(200);
-        keltainen.setPrefSize(150,150);
-        keltainen.setStyle("-fx-background-color: #c8c800;" +
-                "-fx-background-radius: 10em;" +
-                "-fx-min-width: 150px;" +
-                "-fx-min-height: 150px;" +
-                "-fx-max-width: 150px;" +
-                "-fx-max-height: 150px;");
+        keltainen = new Circle();
+        keltainen.setLayoutY(275);
+        keltainen.setLayoutX(275);
+        keltainen.setRadius(75);
+        keltainen.setFill(Color.rgb(180,180,0));
+
+        pikaohje = new Label("Seuraa vilkkumista ja toista järjestys!");
+        pikaohje.setTextFill(Color.WHITE);
+        pikaohje.setLayoutX(105);
+        pikaohje.setLayoutY(20);
 
         jakaja = new Line(0.0,370.0, 500.0, 370.0);
         jakaja.setStroke(Color.DARKGRAY);
@@ -149,8 +140,14 @@ public class Kayttoliittyma extends Application {
         tfNimiKentta.setLayoutY(220);
         nimiKysely = new Pane();
 
+        peliohje = new Label("   Peli alkaa painamalla aloita peli.\nSeuraava taso alkaa automaattisesti.");
+        peliohje.setTextFill(Color.WHITE);
+        peliohje.setFont(new Font(18));
+        peliohje.setLayoutX(60);
+        peliohje.setLayoutY(150);
+
         nimiKysely.setPrefSize(400,500);
-        nimiKysely.getChildren().addAll(pohja, btSyotaNimi, tfNimiKentta);
+        nimiKysely.getChildren().addAll(pohja, btSyotaNimi, tfNimiKentta, peliohje);
 
         suojaruutu = new Pane();
         suojaruutu.setPrefSize(310,310);
@@ -174,7 +171,7 @@ public class Kayttoliittyma extends Application {
 
         peliIkkuna.getChildren().addAll(
                 punainen,sininen,vihrea,keltainen,
-                jakaja,aloita,lopetaPeli,ennatys,suojaruutu,nimiKysely);
+                jakaja,aloita,lopetaPeli,ennatys,pikaohje,suojaruutu,nimiKysely);
         suojaruutu.toBack();
     }
 
@@ -199,47 +196,27 @@ public class Kayttoliittyma extends Application {
      * @param painike Painike jota on painettu tai joka on aktivoitunut.
      * @param vari teksti sen mukaan minkä väriseltä napilta kutsu tulee
      */
-    protected void valaytaNappia(Button painike, String vari) {
-        String alkuperainenVari = painike.getStyle();
+    protected void valaytaNappia(Circle painike, String vari) {
+        Paint alkuperainenVari = painike.getFill();
         switch (vari) {
             case "punainen":
-                painike.setStyle("-fx-background-color: #ff0000;" +
-                        "-fx-background-radius: 10em;" +
-                        "-fx-min-width: 150px;" +
-                        "-fx-min-height: 150px;" +
-                        "-fx-max-width: 150px;" +
-                        "-fx-max-height: 150px;");
+                painike.setFill(Color.rgb(255,0,0));
                 break;
             case "sininen":
-                painike.setStyle("-fx-background-color: #0000ff;" +
-                        "-fx-background-radius: 10em;" +
-                        "-fx-min-width: 150px;" +
-                        "-fx-min-height: 150px;" +
-                        "-fx-max-width: 150px;" +
-                        "-fx-max-height: 150px;");
+                painike.setFill(Color.rgb(0,0,255));
                 break;
             case "vihrea":
-                painike.setStyle("-fx-background-color: #00ff00;" +
-                        "-fx-background-radius: 10em;" +
-                        "-fx-min-width: 150px;" +
-                        "-fx-min-height: 150px;" +
-                        "-fx-max-width: 150px;" +
-                        "-fx-max-height: 150px;");
+                painike.setFill(Color.rgb(0,255,0));
                 break;
             case "keltainen":
-                painike.setStyle("-fx-background-color: #ffff00;" +
-                        "-fx-background-radius: 10em;" +
-                        "-fx-min-width: 150px;" +
-                        "-fx-min-height: 150px;" +
-                        "-fx-max-width: 150px;" +
-                        "-fx-max-height: 150px;");
+                painike.setFill(Color.rgb(255,255,0));
                 break;
                 //muistetaan ne breakit siellä...
         }
 
         PauseTransition varinVaihto = new PauseTransition();
         varinVaihto.setDuration(Duration.millis(valaytysKesto)); //testaa sopiva aika
-        varinVaihto.setOnFinished(event -> painike.setStyle(alkuperainenVari));
+        varinVaihto.setOnFinished(event -> painike.setFill(alkuperainenVari));
         varinVaihto.play();
     }
 
@@ -250,22 +227,22 @@ public class Kayttoliittyma extends Application {
      * sama kuin haluttu napinpainallus.
      */
     private void nappienTapahtumat() {
-        punainen.setOnAction(event -> {
+        punainen.setOnMousePressed(event -> {
             valaytaNappia(punainen,"punainen");
             peliLogiikka.tarkastaPelaajanSyote('R');
         });
 
-        sininen.setOnAction(event -> {
+        sininen.setOnMousePressed(event -> {
             valaytaNappia(sininen,"sininen");
             peliLogiikka.tarkastaPelaajanSyote('B');
         });
 
-        vihrea.setOnAction(event -> {
+        vihrea.setOnMousePressed(event -> {
             valaytaNappia(vihrea,"vihrea");
             peliLogiikka.tarkastaPelaajanSyote('G');
         });
 
-        keltainen.setOnAction(event -> {
+        keltainen.setOnMousePressed(event -> {
             valaytaNappia(keltainen,"keltainen");
             peliLogiikka.tarkastaPelaajanSyote('Y');
         });
@@ -348,7 +325,6 @@ public class Kayttoliittyma extends Application {
         //annetun nimen välitys Pelaaja oliolle
         btSyotaNimi.setOnAction(event -> {
             pelaaja.setPelaajaNimi(tfNimiKentta.getText());
-            nimiKysely.getChildren().removeAll(pohja, tfNimiKentta, btSyotaNimi);
             peliIkkuna.getChildren().remove(nimiKysely);
             suojaruutu.toFront();
         });
