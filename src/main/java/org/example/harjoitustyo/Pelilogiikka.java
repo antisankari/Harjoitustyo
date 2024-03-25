@@ -30,6 +30,10 @@ public class Pelilogiikka {
      */
     private int taso;
     /**
+     * sekvenssinVakiomitta tallettaa tiedon sekvenssin miminipituudesta.
+     */
+    final private int sekvenssinVakiomitta = 3;
+    /**
      * uusiTaso tallettaa tiedon mille tasolle siirrytään.
      */
     private int uusiTaso = 0;
@@ -92,7 +96,7 @@ public class Pelilogiikka {
         int ylaraja = 4;
         int alaraja = 0;
 
-        for (int i = 0; i < (this.taso + 3); i++) {
+        for (int i = 0; i < (this.taso + sekvenssinVakiomitta); i++) {
             int indeksi = rand.nextInt(ylaraja - alaraja) + alaraja;
             sekvenssi.add(variValinta.charAt(indeksi));
         }
