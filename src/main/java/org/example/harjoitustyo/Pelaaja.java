@@ -30,6 +30,9 @@ public class Pelaaja implements Serializable {
      * Pelatun pelin päivämäärä. Kerää tiedon pelin päivämäärästä ennätystä varten.
      */
     private Date peliPaiva = new Date();
+    /**
+     * Tallennettavan päiväystiedon muotoiluasetus pelkkään päivämäärämuotoon.
+     */
     final private SimpleDateFormat paivaysMuotoilu = new SimpleDateFormat("dd.MM.yyyy");
     /**
      * Pelaaja-olion luonti ennätyspelaajaksi, joka päivitetään tiedostosta ja tallennetaan tiedostoon

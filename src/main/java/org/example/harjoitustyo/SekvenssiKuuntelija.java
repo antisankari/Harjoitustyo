@@ -8,6 +8,10 @@ import java.util.ArrayList;
  * Mahdollistaa rajapinnan listamuuttujan muutoksien seuraamiseen.
  */
 public interface SekvenssiKuuntelija {
+    /**
+     * onkoSekvenssiPaivitetty seuraa listan päivittymistä.
+     * @param sekvenssi Character lista, jossa on päivitetty sekvenssi.
+     */
     void onkoSekvenssiPaivitetty(ArrayList<Character> sekvenssi);
     // tämä toteutustapa on lainattu internetistä, en muistanut ottaa talteen sivustoa mistä löysin
     //Observer toteutus, jossa on sisäänrakennettu päivitystiedon lähetys ominaisuus

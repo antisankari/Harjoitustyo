@@ -67,10 +67,17 @@ public class Kayttoliittyma extends Application {
     final private int valaytysKesto = 250;
 
     /**
+     * Kayttoliittyma luokan oletuskonstruktori.
+     */
+    public Kayttoliittyma() {
+    }
+
+    /**
      * piirraPeli metodi piirtää peli-ikkunan ohjelman käynnistyessä.
      * <br>
      * Peli-ikkunan piirto pitää sisällään kaikki painikkeet, peliruudun jne.
      */
+
     private void piirraPeli() {
         peliIkkuna = new Pane();
         peliIkkuna.setStyle("-fx-background-color: #000000;");

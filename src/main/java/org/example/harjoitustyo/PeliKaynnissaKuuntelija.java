@@ -5,5 +5,9 @@ package org.example.harjoitustyo;
  * Mahdollistaa rajapinnan totuusarvomuuttujan muutoksien seuraamiseen.
  */
 public interface PeliKaynnissaKuuntelija {
+    /**
+     * onkoPeliKaynnissa seuraa totuusarvon päivittymistä.
+     * @param peliKaynnissa sisältää totuusarvomuotoisen tiedon.
+     */
     void onkoPeliKaynnissa(boolean peliKaynnissa);
 }
