@@ -27,6 +27,7 @@ import java.util.ArrayList;
  * Kayttoliittyma luokka piirtää pelin grafiikan ja lähettää Pelilogiikka luokalle kutsun käynnistää pelilogiikka.
  * Käyttöliittymässä toteutetaan painikkeiden vilkkuminen painaessa sekä pelilogiikan sekvenssin mukaan.
  * Lisäksi näytölle piirretään ennätystuloksen haltijan nimimerkki ja pisteet.
+ * @author Anssi Sankari
  */
 public class Kayttoliittyma extends Application {
     private Pelilogiikka peliLogiikka;
@@ -337,7 +338,5 @@ public class Kayttoliittyma extends Application {
             peliLogiikka.lopetaPeli();
             Platform.exit();
         });
-
-
     }
 }

@@ -2,6 +2,11 @@ package org.example.harjoitustyo;
 
 import java.util.ArrayList;
 
+/**
+ * SekvenssiKuuntelija rajapinta
+ * <br>
+ * Mahdollistaa rajapinnan listamuuttujan muutoksien seuraamiseen.
+ */
 public interface SekvenssiKuuntelija {
     void onkoSekvenssiPaivitetty(ArrayList<Character> sekvenssi);
     // tämä toteutustapa on lainattu internetistä, en muistanut ottaa talteen sivustoa mistä löysin

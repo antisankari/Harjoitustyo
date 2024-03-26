@@ -9,10 +9,9 @@ import java.util.Random;
  * <br>
  * Luokka sisältää toiminnallisuuden sekvenssi listan luontiin, uuden pelaajan luontiin ja pelaajan painaman
  * painikkeen tarkastamiseen ja vertaamisen olevassa olevaan sekvenssiin.
- * @author AntiSankari
+ * @author Anssi Sankari
  */
 public class Pelilogiikka {
-
     /**
      * ArrayList merkkilista tallentaa halutun merkkisekvenssin.
      */
@@ -51,6 +50,7 @@ public class Pelilogiikka {
      * Kayttoliittyma luokalle.
      */
     private SekvenssiKuuntelija sekvenssiKuuntelija;
+
     /**
      * PeliKaynnissaKuuntelija rajapinta seuraa peliKaynnissa muuttujaa ja tilan muuttuessa tieto näkyy Kayttoliittyma
      * luokalle.
@@ -71,6 +71,10 @@ public class Pelilogiikka {
         this.uusiTaso = uusiTaso;
     }
 
+    /**
+     * getLahtotaso metodi hakee lahtoTason kokonaislukuarvon.
+     * @return kokonaisluku arvo lahtoTasolle
+     */
     public int getLahtoTaso() {
         return lahtoTaso;
     }
@@ -83,7 +87,6 @@ public class Pelilogiikka {
         this.pelaaja = pelaaja;
     }
 
-    //sekvenssin luonti
     /**
      * Metodi luo satunnaisen sekvenssin, joka käyttäjän täytyy toistaa painikkeilla
      * @param tasoNumero kertoo metodille montako lisämerkkiä lisätään listaan
@@ -100,7 +103,6 @@ public class Pelilogiikka {
             int indeksi = rand.nextInt(ylaraja - alaraja) + alaraja;
             sekvenssi.add(variValinta.charAt(indeksi));
         }
-        System.out.println(sekvenssi);
         //kuuntelija päivittyy tyhjästä jolloin tieto saadaan siirrettyä
         if (sekvenssiKuuntelija != null) {
             sekvenssiKuuntelija.onkoSekvenssiPaivitetty(sekvenssi);
@@ -172,15 +174,4 @@ public class Pelilogiikka {
             peliKaynnissaKuuntelija.onkoPeliKaynnissa(peliKaynnissa);
         }
     }
-
-    /*
-    public static void main(String[] args) {
-
-        //Pelilogiikka testi = new Pelilogiikka();
-        //testi.luoSekvenssi(4);
-        //System.out.println("|" + testi.sekvenssi.get(2) + "|");
-    }
-
-     */
-
 }

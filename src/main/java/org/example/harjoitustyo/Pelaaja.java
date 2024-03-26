@@ -37,7 +37,6 @@ public class Pelaaja implements Serializable {
      */
     private Pelaaja ennatysPelaaja;
 
-    //tiedosto
     /**
      * Tiedosto, johon ennätyspelaaja olio tallennetaan ja josta ennätyspelaaja luetaan.
      */
@@ -165,26 +164,4 @@ public class Pelaaja implements Serializable {
                 "Pisteet: " + pisteet + "\n" +
                 "Päivämäärä: " + paivaysMuotoilu.format(peliPaiva);
     }
-
-    /*
-    public static void main(String[] args) {
-        //testausta
-        //Pelaaja testData = new Pelaaja(1,2,3,0,"Peluri");
-        //testData.lueTiedostosta();
-        //testData.tallennaTiedostoon();
-        //Pelaaja tulostus = new Pelaaja();
-        //tulostus.setTaso(10);
-        //tulostus.setPisteet(500);
-        //tulostus.setPelaajaNimi("testiukkeli");
-        //tulostus.tallennaTiedostoon();
-        /*
-        tulostus.lueTiedostosta();
-        Pelaaja ennatysPelaaja = tulostus.lueTiedostosta();
-        if (ennatysPelaaja != null) {
-            System.out.println(ennatysPelaaja);
-        } else {
-            System.out.println("asdasd");
-        }
-    }
-     */
 }
