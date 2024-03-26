@@ -4,7 +4,6 @@ import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,7 +39,6 @@ public class Kayttoliittyma extends Application {
     protected Circle vihrea;
     protected Circle keltainen;
     private Button lopetaPeli;
-    private Label pikaohje;
 
     //alaosa jossa on toiminnot ja ennätys
     private Line jakaja;
@@ -52,7 +50,6 @@ public class Kayttoliittyma extends Application {
     private TextField tfNimiKentta;
     private Button btSyotaNimi;
     private Rectangle pohja;
-    private Label peliohje;
 
     //suojaruutu
     private Pane suojaruutu;
@@ -102,7 +99,7 @@ public class Kayttoliittyma extends Application {
         keltainen.setRadius(75);
         keltainen.setFill(Color.rgb(180,180,0));
 
-        pikaohje = new Label("Seuraa vilkkumista ja toista järjestys!");
+        Label pikaohje = new Label("Seuraa vilkkumista ja toista järjestys!");
         pikaohje.setTextFill(Color.WHITE);
         pikaohje.setLayoutX(105);
         pikaohje.setLayoutY(20);
@@ -140,7 +137,7 @@ public class Kayttoliittyma extends Application {
         tfNimiKentta.setLayoutY(220);
         nimiKysely = new Pane();
 
-        peliohje = new Label("   Peli alkaa painamalla aloita peli.\nSeuraava taso alkaa automaattisesti.");
+        Label peliohje = new Label("   Peli alkaa painamalla aloita peli.\nSeuraava taso alkaa automaattisesti.");
         peliohje.setTextFill(Color.WHITE);
         peliohje.setFont(new Font(18));
         peliohje.setLayoutX(60);
@@ -280,10 +277,6 @@ public class Kayttoliittyma extends Application {
         vilkutusJarjestys.setOnFinished(event -> suojaruutu.toBack());
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     /**
      * Graafisen käyttöliittymän ja pelilogiikan käynnistys.
      * Luo painikkeille tapahtumayhteydet.
@@ -344,5 +337,7 @@ public class Kayttoliittyma extends Application {
             peliLogiikka.lopetaPeli();
             Platform.exit();
         });
+
+
     }
 }
