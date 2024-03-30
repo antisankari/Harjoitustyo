@@ -29,3 +29,38 @@ Tarkasta ennätyksen tulostuminen oikein, nyt tapahtuu jotain jännää. < korja
 
 Ennätyksen päivittyminen heti tekemättä
 Väärästä arvauksesta pelin lopetusruudun piirto < tehty
+
+Pelaaja
+    /*
+    public static void main(String[] args) {
+        //testausta
+        //Pelaaja testData = new Pelaaja(1,2,3,0,"Peluri");
+        //testData.lueTiedostosta();
+        //testData.tallennaTiedostoon();
+        //Pelaaja tulostus = new Pelaaja();
+        //tulostus.setTaso(10);
+        //tulostus.setPisteet(500);
+        //tulostus.setPelaajaNimi("testiukkeli");
+        //tulostus.tallennaTiedostoon();
+        /*
+        tulostus.lueTiedostosta();
+        Pelaaja ennatysPelaaja = tulostus.lueTiedostosta();
+        if (ennatysPelaaja != null) {
+            System.out.println(ennatysPelaaja);
+        } else {
+            System.out.println("asdasd");
+        }
+    }
+     */
+
+Pelilogiikka
+
+    /*
+    public static void main(String[] args) {
+
+        //Pelilogiikka testi = new Pelilogiikka();
+        //testi.luoSekvenssi(4);
+        //System.out.println("|" + testi.sekvenssi.get(2) + "|");
+    }
+
+     */
